@@ -7,6 +7,7 @@ import ConvexClientProvider from "@/components/convex-client-provider";
 
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import Navbar from "@/components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,9 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn("dark", inter.className)}>
+      <body className={cn("dark flex items-stretch flex-col", inter.className)}>
         <Suspense fallback={"Loading..."}>
           <ConvexClientProvider>
+            <Navbar />
             {children}
             <Toaster />
           </ConvexClientProvider>
