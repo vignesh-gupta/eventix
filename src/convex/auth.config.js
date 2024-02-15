@@ -2,8 +2,8 @@
 export default {
   providers: [
     {
-      domain: "https://accounts.google.com/",
-      applicationID: "your-application-id",
+      domain: "https://lenient-tuna-34.clerk.accounts.dev",
+      applicationID: "convex",
     },
-  ],
+  ]
 };
