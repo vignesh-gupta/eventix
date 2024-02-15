@@ -1,22 +1,31 @@
 "use client";
 
+import { useAuth } from "@clerk/nextjs";
+
+import { Button } from "@/components/ui/button";
 import { HeroParallax } from "@/components/ui/hero-parallax";
+import { ChevronRight } from "lucide-react";
 
 const HeroSection = () => {
+  const { isSignedIn } = useAuth();
+
   return (
     <HeroParallax products={products}>
-      <div className="relative top-0 left-0 w-full px-4 py-20 mx-auto max-w-7xl md:py-40">
-        <h1 className="text-2xl font-bold md:text-7xl">
+      <div className="relative top-0 left-0 w-full px-4 py-20 mx-auto max-w-7xl md:py-32">
+        <h1 className="text-3xl sm:text-4xl font-bold lg:text-7xl md:text-5xl">
           Your Gateway to <br />
           Unforgettable Experiences
         </h1>
-        <p className="max-w-3xl mt-8 text-base md:text-xl text-pretty">
+        <p className="max-w-3xl my-4 text-base md:text-xl text-pretty">
           Elevate your events effortlessly! As a creator, craft and sell tickets
           for any experience. Attendees, discover and join unique events
           seamlessly. With secure transactions and limitless possibilities,
-          Eventix is your key to unforgettable moments. Sign up now to transform
-          your vision into sold-out success!
         </p>
+        {isSignedIn ? (
+          <Button>Go to DashBoard <ChevronRight className="w-5 h-5 ml-2" /></Button>
+        ) : (
+          <Button>Get Started</Button>
+        )}
       </div>
     </HeroParallax>
   );

@@ -56,7 +56,7 @@ export const HeroParallax = ({ products, children }: HeroParallaxProps) => {
   return (
     <section
       ref={ref}
-      className="pt-20 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="pt-10 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       {children}
       <motion.div

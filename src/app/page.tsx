@@ -54,8 +54,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="container grid grid-cols-1 gap-3 py-20 place-items-center md:place-items-start md:grid-cols-2 lg:grid-cols-3">
-        <div className="lg:col-span-2">
+      <section className="container grid grid-cols-1 gap-3 py-20 place-items-center md:place-items-start md:grid-cols-2 lg:grid-cols-5">
+        <div className="lg:col-span-3">
           <h2 className="text-xl md:text-2xl">
             Let&apos;s make every event an extraordinary one!
           </h2>
@@ -63,8 +63,8 @@ export default function Home() {
             Sign up now and start creating your first event!
           </p>
         </div>
-        <div className="flex flex-wrap gap-5 lg:justify-end">
-          <Input placeholder="abc@xyz.com" type="email" className="w-auto " />
+        <div className="flex gap-5 lg:justify-end lg:w-full w-auto lg:col-span-2">
+          <Input placeholder="abc@xyz.com" type="email"   />
           <Button type="submit">Sign Up</Button>
         </div>
       </section>
