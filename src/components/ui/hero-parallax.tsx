@@ -54,9 +54,9 @@ export const HeroParallax = ({ products, children }: HeroParallaxProps) => {
     springConfig
   );
   return (
-    <div
+    <section
       ref={ref}
-      className="h-[220vh] pb-40 py-20 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="pt-20 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       {children}
       <motion.div
@@ -96,7 +96,7 @@ export const HeroParallax = ({ products, children }: HeroParallaxProps) => {
           ))}
         </motion.div>
       </motion.div>
-    </div>
+    </section>
   );
 };
 
@@ -124,8 +124,8 @@ export const ProductCard = ({
       <div className="block group-hover/product:shadow-2xl ">
         <Image
           src={product.thumbnail}
-          height="600"
-          width="600"
+          height={600}
+          width={600}
           className="absolute inset-0 object-cover object-left-top w-full h-full"
           alt={product.title}
         />
