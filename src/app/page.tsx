@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 
 export default function Home() {
   return (
-    <main className="mb-10 grow">
+    <>
       <HeroSection />
       <section className="container w-full mt-5 text-center">
         <h2 className="text-2xl md:text-4xl">Key Features</h2>
@@ -64,10 +64,10 @@ export default function Home() {
           </p>
         </div>
         <div className="flex gap-5 lg:justify-end lg:w-full w-auto lg:col-span-2">
-          <Input placeholder="abc@xyz.com" type="email"   />
+          <Input placeholder="abc@xyz.com" type="email" />
           <Button type="submit">Sign Up</Button>
         </div>
       </section>
-    </main>
+    </>
   );
 }

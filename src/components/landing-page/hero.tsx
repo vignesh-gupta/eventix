@@ -2,9 +2,10 @@
 
 import { useAuth } from "@clerk/nextjs";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { HeroParallax } from "@/components/ui/hero-parallax";
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 const HeroSection = () => {
   const { isSignedIn } = useAuth();
@@ -22,7 +23,7 @@ const HeroSection = () => {
           seamlessly. With secure transactions and limitless possibilities,
         </p>
         {isSignedIn ? (
-          <Button>Go to DashBoard <ChevronRight className="w-5 h-5 ml-2" /></Button>
+          <Link href='/dashboard' className={buttonVariants()}>Go to DashBoard <ChevronRight className="w-5 h-5 ml-2" /></Link>
         ) : (
           <Button>Get Started</Button>
         )}

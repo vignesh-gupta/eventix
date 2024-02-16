@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col items-center w-full gap-2 p-4 border-t lg:px-20 sm:flex-row shrink-0 md:px-6">
+    <footer className="flex  items-center w-full gap-2 p-4 border-t lg:px-20 flex-row shrink-0 md:px-6">
       <p className="text-gray-600">
         Project By{" "}
         <Link
@@ -13,7 +13,7 @@ const Footer = () => {
           Vignesh Gupta
         </Link>
       </p>
-      <nav className="flex gap-4 sm:ml-auto sm:gap-6">
+      <nav className="flex gap-4 ml-auto">
         <Link
           href="https://github.com/vignesh-gupta/eventix/"
           target="_blank"
