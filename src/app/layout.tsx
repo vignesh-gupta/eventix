@@ -25,7 +25,7 @@ export default function RootLayout({
         <Suspense fallback={"Loading..."}>
           <ConvexClientProvider>
             <Navbar />
-            <main className="mb-10 grow ">{children}</main>
+            <main className="mb-5 grow ">{children}</main>
             <Footer />
             <Toaster />
           </ConvexClientProvider>

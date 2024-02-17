@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import MobileNav from "./mobile-nav";
 import { SignInButton, UserButton, useAuth } from "@clerk/nextjs";
-import { navLinks } from "@/lib/constants/mappingConstants";
+import { NAV_LINKS } from "@/lib/constants/mappingConstants";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,7 +27,7 @@ const Navbar = () => {
             EventiX
           </a>
           <nav className="items-center hidden space-x-6 text-sm font-medium md:flex">
-            {navLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <a
                 key={link.text.toLocaleLowerCase()}
                 className="transition-colors hover:text-foreground/80 text-foreground/60"

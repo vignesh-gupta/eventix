@@ -1,4 +1,4 @@
-export const navLinks = [
+export const NAV_LINKS = [
   {
     text: "Home",
     href: "/",
@@ -19,4 +19,15 @@ export const navLinks = [
     text: "Examples",
     href: "/examples",
   },
+];
+
+export const EVENT_CATEGORIES = [
+  "Charity & Causes",
+  "Concert",
+  "Conference",
+  "Exhibition",
+  "Product Launch",
+  "Seminar",
+  "Sports",
+  "Trade Show",
 ];
