@@ -38,7 +38,7 @@ const Filters = () => {
   }, [debouncedSearch, category, type, router]);
 
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="flex flex-wrap gap-3 grow">
       <SearchBox search={search} setSearch={setSearch} />
 
       <FilterDropdown
