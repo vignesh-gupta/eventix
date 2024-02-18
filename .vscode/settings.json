@@ -4,6 +4,7 @@
     "Eventix"
   ],
   "conventionalCommits.scopes": [
-    "seo"
+    "seo",
+    "events"
   ]
 }

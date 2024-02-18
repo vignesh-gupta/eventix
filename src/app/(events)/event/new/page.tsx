@@ -22,8 +22,13 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { EVENT_CATEGORIES } from "@/lib/constants/mappingConstants";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 const CreateEventPage = () => {
+
+  const createEvent = useMutation(api.event.create)
+
   const createEventSchema = z.object({
     title: z.string().min(5).max(100),
     eventType: z.enum(["virtual", "physical", "both"]),
@@ -54,6 +59,7 @@ const CreateEventPage = () => {
 
   function onSubmit(values: z.infer<typeof createEventSchema>) {
     console.log(values);
+    createEvent(values);
   }
 
   return (
