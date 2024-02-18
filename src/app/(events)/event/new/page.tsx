@@ -21,13 +21,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { api } from "@/convex/_generated/api";
 import { EVENT_CATEGORIES } from "@/lib/constants/mappingConstants";
 import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
 
 const CreateEventPage = () => {
+  const router = useRouter();
 
-  const createEvent = useMutation(api.event.create)
+  const createEvent = useMutation(api.event.create);
 
   const createEventSchema = z.object({
     title: z.string().min(5).max(100),
@@ -60,6 +62,7 @@ const CreateEventPage = () => {
   function onSubmit(values: z.infer<typeof createEventSchema>) {
     console.log(values);
     createEvent(values);
+    router.push("/events");
   }
 
   return (
@@ -188,7 +191,12 @@ const CreateEventPage = () => {
             )}
           />
           <div className="md:col-span-2">
-            <Button type="submit">Submit</Button>
+            <Button
+              type="submit"
+              disabled={form.formState.isLoading || form.formState.isSubmitting}
+            >
+              Submit
+            </Button>
           </div>
         </form>
       </Form>

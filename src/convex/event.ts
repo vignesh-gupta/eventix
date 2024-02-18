@@ -27,7 +27,7 @@ export const create = mutation({
       from: from,
       till: till,
       location: location,
-      createdBy: identity.issuer,
+      createdBy: identity.name || `Clerk User<${identity.email}>`,
     });
 
     console.log({ event, identity });
