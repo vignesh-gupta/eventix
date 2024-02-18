@@ -8,7 +8,7 @@ type EventLayoutProps = {
 };
 
 const EventLayout = ({ className, children }: EventLayoutProps) => {
-  return <div className={cn("container mt-10", className)}>{children}</div>;
+  return <div className={cn("container mt-5", className)}>{children}</div>;
 };
 
 export default EventLayout;

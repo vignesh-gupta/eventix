@@ -31,3 +31,5 @@ export const EVENT_CATEGORIES = [
   "Sports",
   "Trade Show",
 ];
+
+export const EVENT_TYPES = ["Physical", "Virtual", "Both"];
