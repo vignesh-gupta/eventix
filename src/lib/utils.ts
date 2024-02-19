@@ -6,6 +6,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function getDateFromTime(time: number) {
+  const date = new Date(time);
+  return date.toDateString();
+}
+
 export function generateMetaData(
   title?: string,
   url?: string,

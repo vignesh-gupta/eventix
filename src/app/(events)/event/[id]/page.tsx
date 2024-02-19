@@ -32,6 +32,7 @@ import {
 import Image from "next/image";
 import InfoField from "./_components/info-field";
 import { Badge } from "@/components/ui/badge";
+import { getDateFromTime } from "@/lib/utils";
 
 type EventDetailsPageProps = {
   params: {
@@ -67,8 +68,8 @@ const EventDetailsPage = ({ params: { id } }: EventDetailsPageProps) => {
             />
           </CarouselItem>
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="hidden lg:inline-flex" />
+        <CarouselNext className="hidden lg:inline-flex" />
       </Carousel>
       <CardContent className="p-4">
         <div className="mb-4">
@@ -82,7 +83,7 @@ const EventDetailsPage = ({ params: { id } }: EventDetailsPageProps) => {
         <div className="grid gap-2">
           <InfoField
             label="Created At"
-            value="Aug 23, 2023, 10:00 AM"
+            value={getDateFromTime(eventData?._creationTime || 0)}
             Icon={Calendar}
           />
 

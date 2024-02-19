@@ -9,10 +9,12 @@ type InfoFieldProps = {
 
 const InfoField = ({ label, value, Icon }: InfoFieldProps) => {
   return (
-    <div className="flex items-center gap-4">
-      <div className="text-sm w-20">{label}</div>
-      <div className="flex items-center gap-2">
+    <div className="flex items-center gap-3 w-full">
+      <div className="text-sm w-32 flex gap-3 items-center">
         {Icon && <Icon className="w-4 h-4 fill-muted" />}
+        {label}
+      </div>
+      <div className="flex-1">
         <span>{value}</span>
       </div>
     </div>
