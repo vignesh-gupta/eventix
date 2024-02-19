@@ -1,5 +1,21 @@
 import { v } from "convex/values";
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
+
+export const get = query({
+  args: {
+    id: v.id("events"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthenticated identity");
+
+    const event = await ctx.db.get(args.id);
+
+    if (!event) throw new Error("No event found");
+
+    return event;
+  },
+});
 
 export const create = mutation({
   args: {
