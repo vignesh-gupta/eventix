@@ -5,6 +5,7 @@
   ],
   "conventionalCommits.scopes": [
     "seo",
-    "events"
+    "events",
+    "event"
   ]
 }
