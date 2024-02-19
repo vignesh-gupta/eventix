@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import { Toaster } from "sonner";
 
 import ConvexClientProvider from "@/components/convex-client-provider";
-
+import Loader from "@/components/Loader";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { cn, generateMetaData } from "@/lib/utils";
@@ -22,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn("dark flex items-stretch flex-col", inter.className)}>
-        <Suspense fallback={"Loading..."}>
+        <Suspense fallback={<Loader />}>
           <ConvexClientProvider>
             <Navbar />
             <main className="mb-5 grow ">{children}</main>
