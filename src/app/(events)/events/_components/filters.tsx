@@ -61,7 +61,7 @@ const Filters = ({ query } : FiltersProps) => {
         value={category}
         options={EVENT_CATEGORIES}
         placeholder="Category"
-        className="w-[300px]"
+        className="basis-[200px]"
       />
     </div>
   );

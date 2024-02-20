@@ -26,7 +26,7 @@ const FilterDropdown = ({
 }: FilterDropdownProps) => {
   return (
     <Select onValueChange={setValue} value={value}>
-      <SelectTrigger className={cn("w-[150px]", className)}>
+      <SelectTrigger className={cn("basis-[150px] grow lg:grow-0", className)}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

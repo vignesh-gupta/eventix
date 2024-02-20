@@ -12,7 +12,7 @@ type SearchBoxProps = {
 
 const SearchBox = ({ search, setSearch }: SearchBoxProps) => {
   return (
-    <div className="relative grow">
+    <div className="relative grow basis-[95%] lg:basis-0">
       <Input
         placeholder="Search for something new"
         className="pl-10 relative"
