@@ -15,7 +15,6 @@ export const getEvents = query({
     // TODO: Add title filtering logic based on the search filter passed
 
     const { category, search, type } = args;
-    console.log(args);
 
     const events = await ctx.db
       .query("events")

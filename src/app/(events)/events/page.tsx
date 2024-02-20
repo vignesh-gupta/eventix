@@ -16,7 +16,7 @@ const EventListPage = ({ searchParams }: EventListPageProp) => {
         <h1 className="text-lg grow sm:text-xl md:text-2xl lg:text-3xl">
           Explore Events
         </h1>
-        <Filters />
+        <Filters query={searchParams} />
       </div>
 
       <EventList query={searchParams} />

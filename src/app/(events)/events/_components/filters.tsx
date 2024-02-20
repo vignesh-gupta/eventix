@@ -12,12 +12,20 @@ import { useRouter } from "next/navigation";
 import qs from "query-string";
 import FilterDropdown from "./filter-dropdown";
 
-const Filters = () => {
+type FiltersProps = {
+  query: {
+    category?: string;
+    type?: string;
+    search?: string;
+  };
+};
+
+const Filters = ({ query } : FiltersProps) => {
   const router = useRouter();
 
-  const [search, setSearch] = useState("");
-  const [type, setType] = useState("");
-  const [category, setCategory] = useState("");
+  const [search, setSearch] = useState(query.search || "");
+  const [type, setType] = useState(query.type || "");
+  const [category, setCategory] = useState(query.category || "");
 
   const debouncedSearch = useDebounce(search);
 
