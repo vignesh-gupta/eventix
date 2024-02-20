@@ -54,7 +54,7 @@ const EventCard = ({
         <CardTitle className="truncate">{title}</CardTitle>
         <CardDescription className="truncate">{description}</CardDescription>
       </CardHeader>
-      <CardFooter className="flex-col items-start gap-4">
+      <CardFooter className="flex-col items-start gap-3">
         <EventCardFooterItem Icon={MapPin} data={location} />
         <EventCardFooterItem Icon={User2} data={createdBy} />
 

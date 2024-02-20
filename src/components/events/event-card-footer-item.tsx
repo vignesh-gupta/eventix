@@ -11,7 +11,7 @@ const EventCardFooterItem = ({ data, Icon }: EventCardFooterItemProp) => {
     <div className="grid grid-cols-12 gap-5">
       <Icon className="w-5 h-5 text-gray-200" />
       <div className="col-span-11">
-        <p className="text-sm text-gray-400">{data}</p>
+        <p className="text-sm text-gray-400 truncate">{data}</p>
       </div>
     </div>
   );

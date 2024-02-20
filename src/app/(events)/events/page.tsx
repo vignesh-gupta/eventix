@@ -1,7 +1,15 @@
 import EventList from "@/components/events/event-list";
 import Filters from "./_components/filters";
 
-const EventListPage = () => {
+type EventListPageProp = {
+  searchParams: {
+    category?: string;
+    type?: string;
+    search?: string;
+  };
+};
+
+const EventListPage = ({ searchParams }: EventListPageProp) => {
   return (
     <div>
       <div className="flex mb-4 justify-between">
@@ -11,7 +19,7 @@ const EventListPage = () => {
         <Filters />
       </div>
 
-      <EventList />
+      <EventList query={searchParams} />
     </div>
   );
 };
