@@ -11,5 +11,6 @@ export default defineSchema({
     location: v.string(),
     till: v.string(),
     title: v.string(),
+    creatorId: v.string(),
   }),
 });

@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,45 +17,53 @@ import {
 } from "@/components/ui/carousel";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { useQuery } from "convex/react";
+import { getDateFromTime } from "@/lib/utils";
+import { useMutation, useQuery } from "convex/react";
 import {
   BookOpenCheckIcon,
   Calendar,
-  Clock,
   Clock1,
   Clock10,
-  Clock12,
-  Clock9,
   MapPin,
-  Text,
+  Trash,
   User,
 } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import InfoField from "./_components/info-field";
-import { Badge } from "@/components/ui/badge";
-import { getDateFromTime } from "@/lib/utils";
 
 type EventDetailsPageProps = {
   params: {
-    id: string;
+    id: Id<"events">;
   };
 };
 
 const EventDetailsPage = ({ params: { id } }: EventDetailsPageProps) => {
-  const eventData = useQuery(api.event.get, {
-    id: id as Id<"events">,
-  });
+  const eventData = useQuery(api.event.get, { id });
+
+  const deleteEvent = useMutation(api.event.remove);
+
+  const router = useRouter();
+
+  const handleDelete = () => {
+    deleteEvent({ id });
+    router.push("/events");
+  };
 
   return (
     <Card className="w-full max-w-3xl mx-auto">
-      <CardHeader className="flex flex-col gap-1">
+      <CardHeader className="py-3 flex flex-col md:flex-row md:justify-between gap-1">
         <div className="flex items-center gap-2">
           <Calendar className="w-4 h-4 fill-muted" />
           <h2 className="text-sm font-semibold tracking-wider uppercase">
             {eventData?.title}
           </h2>
         </div>
-        {/* <CardDescription>The best conference for developers</CardDescription> */}
+        <div>
+          <Button variant="outline" size="icon" onClick={handleDelete}>
+            <Trash className="w-4 h-4" />
+          </Button>
+        </div>
       </CardHeader>
       <Carousel className="w-full max-w-3xl">
         <CarouselContent>

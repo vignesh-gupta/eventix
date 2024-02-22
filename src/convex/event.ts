@@ -1,3 +1,4 @@
+import { NO_EVENT_FOUND_ERROR, UNAUTHORIZED_ERROR } from "@/lib/constants";
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
@@ -7,11 +8,11 @@ export const get = query({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("Unauthenticated identity");
+    if (!identity) throw new Error(UNAUTHORIZED_ERROR);
 
     const event = await ctx.db.get(args.id);
 
-    if (!event) throw new Error("No event found");
+    if (!event) throw new Error(NO_EVENT_FOUND_ERROR);
 
     return event;
   },
@@ -35,6 +36,8 @@ export const create = mutation({
     const { title, description, category, eventType, from, till, location } =
       args;
 
+    console.log({ identity });
+
     const event = ctx.db.insert("events", {
       title: title,
       description: description,
@@ -44,10 +47,34 @@ export const create = mutation({
       till: till,
       location: location,
       createdBy: identity.name || `Clerk User<${identity.email}>`,
+      creatorId: identity.subject,
     });
 
     console.log({ event, identity });
 
     return event;
+  },
+});
+
+export const remove = mutation({
+  args: {
+    id: v.id("events"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) throw new Error(UNAUTHORIZED_ERROR);
+
+    const event = await ctx.db.get(args.id);
+
+    if (!event) throw new Error(NO_EVENT_FOUND_ERROR);
+
+    if (event.creatorId !== identity.subject) {
+      throw new Error(UNAUTHORIZED_ERROR);
+    }
+
+    await ctx.db.delete(args.id);
+
+    return true;
   },
 });
