@@ -1,3 +1,12 @@
+"use client";
+
+import { useAuth } from "@clerk/clerk-react";
+import { MapPin, User2 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+
+import { Badge } from "@/components/ui/badge";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,13 +15,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { MapPin, User2 } from "lucide-react";
-import Image from "next/image";
-import { Badge } from "../ui/badge";
-import { Button, buttonVariants } from "../ui/button";
-import EventCardFooterItem from "./event-card-footer-item";
-import Link from "next/link";
 import { Id } from "@/convex/_generated/dataModel";
+import EventActions from "./event-actions";
+import EventCardFooterItem from "./event-card-footer-item";
 
 type EventCardProps = {
   title: string;
@@ -24,27 +29,33 @@ type EventCardProps = {
   till: string;
   location: string;
   createdAt: number;
-  _id: Id<"events">
+  creatorId: string;
+  _id: Id<"events">;
 };
 
 const EventCard = ({
-  category,
-  createdAt,
   createdBy,
   description,
   eventType,
-  from,
   location,
-  till,
   title,
-  _id
+  _id,
+  creatorId,
 }: EventCardProps) => {
+  const { userId } = useAuth();
+
   return (
-    <Card className="overflow-hidden">
-      <CardContent className="p-0 overflow-hidden">
+    <Card className="overflow-hidden group">
+      <CardContent className="relative p-0 overflow-hidden">
+        {userId === creatorId && (
+          <EventActions
+            eventId={_id}
+            className="absolute top-0 right-0 z-10 hidden w-full h-full transition-all duration-100 ease-linear bg-black bg-opacity-0 group-hover:flex group-hover:bg-opacity-50"
+          />
+        )}
         <Image
           src="/thumbnails/charity.jpg"
-          className="aspect-video object-cover object-top w-full hover:scale-150 transition-transform ease-linear"
+          className="object-cover object-top w-full transition-transform ease-linear aspect-video hover:scale-150"
           alt="Thumbnail"
           height={200}
           width={400}
@@ -58,11 +69,19 @@ const EventCard = ({
         <EventCardFooterItem Icon={MapPin} data={location} />
         <EventCardFooterItem Icon={User2} data={createdBy} />
 
-        <div className="flex justify-between flex-col lg:flex-row gap-y-3 w-full">
+        <div className="flex flex-col justify-between w-full lg:flex-row gap-y-3">
           <div className="flex items-center">
             <Badge variant="secondary">{eventType}</Badge>
           </div>
-          <Link href={`/event/${_id}`} className={buttonVariants()}>Book a seat</Link>
+          <div className="flex justify-center gap-3">
+            <Link
+              href={`/event/${_id}`}
+              className={buttonVariants({ variant: "outline" })}
+            >
+              Details
+            </Link>
+            <Button>Book a seat</Button>
+          </div>
         </div>
       </CardFooter>
     </Card>

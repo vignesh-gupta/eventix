@@ -1,5 +1,19 @@
 "use client";
 
+import { useAuth } from "@clerk/clerk-react";
+import { useMutation, useQuery } from "convex/react";
+import {
+  BookOpenCheckIcon,
+  Calendar,
+  Clock1,
+  Clock10,
+  MapPin,
+  User,
+} from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+import EventActions from "@/components/events/event-actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,19 +32,8 @@ import {
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { getDateFromTime } from "@/lib/utils";
-import { useMutation, useQuery } from "convex/react";
-import {
-  BookOpenCheckIcon,
-  Calendar,
-  Clock1,
-  Clock10,
-  MapPin,
-  Trash,
-  User,
-} from "lucide-react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import InfoField from "./_components/info-field";
+import Head from "next/head";
 
 type EventDetailsPageProps = {
   params: {
@@ -39,8 +42,9 @@ type EventDetailsPageProps = {
 };
 
 const EventDetailsPage = ({ params: { id } }: EventDetailsPageProps) => {
-  const eventData = useQuery(api.event.get, { id });
+  const { userId } = useAuth();
 
+  const eventData = useQuery(api.event.get, { id });
   const deleteEvent = useMutation(api.event.remove);
 
   const router = useRouter();
@@ -52,25 +56,33 @@ const EventDetailsPage = ({ params: { id } }: EventDetailsPageProps) => {
 
   return (
     <Card className="w-full max-w-3xl mx-auto">
-      <CardHeader className="py-3 flex flex-col md:flex-row md:justify-between gap-1">
-        <div className="flex items-center gap-2">
+      <CardHeader className="flex flex-col gap-1 py-3 md:flex-row md:justify-between">
+        <div className="flex items-center gap-2 grow">
           <Calendar className="w-4 h-4 fill-muted" />
           <h2 className="text-sm font-semibold tracking-wider uppercase">
             {eventData?.title}
           </h2>
         </div>
-        <div>
-          <Button variant="outline" size="icon" onClick={handleDelete}>
-            <Trash className="w-4 h-4" />
-          </Button>
-        </div>
+
+        {eventData?.creatorId === userId && (
+          <EventActions eventId={id} className="w-auto mt-0" />
+        )}
       </CardHeader>
       <Carousel className="w-full max-w-3xl">
         <CarouselContent>
           <CarouselItem>
             <Image
               alt="Conference Image 1"
-              className="w-full h-64 object-cover rounded-md"
+              className="object-cover w-full h-64 rounded-md"
+              src="/thumbnails/charity.jpg"
+              width={500}
+              height={64}
+            />
+          </CarouselItem>
+          <CarouselItem>
+            <Image
+              alt="Conference Image 1"
+              className="object-cover w-full h-64 rounded-md"
               src="/thumbnails/charity.jpg"
               width={500}
               height={64}
@@ -82,7 +94,7 @@ const EventDetailsPage = ({ params: { id } }: EventDetailsPageProps) => {
       </Carousel>
       <CardContent className="p-4">
         <div className="mb-4">
-          <div className="flex gap-3 items-center mb-2">
+          <div className="flex items-center gap-3 mb-2">
             <h4 className="text-xl">About the Event</h4>
             <Badge className="h-5">{eventData?.eventType}</Badge>
           </div>
@@ -117,7 +129,7 @@ const EventDetailsPage = ({ params: { id } }: EventDetailsPageProps) => {
           <InfoField label="Closes at" value={eventData?.till} Icon={Clock10} />
         </div>
       </CardContent>
-      <CardFooter className="flex p-2 pt-0 justify-end gap-2">
+      <CardFooter className="flex justify-end gap-2 p-2 pt-0">
         <Button>Book a seat</Button>
       </CardFooter>
     </Card>
