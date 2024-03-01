@@ -32,8 +32,7 @@ import {
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { getDateFromTime } from "@/lib/utils";
-import InfoField from "./_components/info-field";
-import Head from "next/head";
+import InfoField from "../../../../components/events/info-field";
 
 type EventDetailsPageProps = {
   params: {
@@ -89,8 +88,8 @@ const EventDetailsPage = ({ params: { id } }: EventDetailsPageProps) => {
             />
           </CarouselItem>
         </CarouselContent>
-        <CarouselPrevious className="hidden lg:inline-flex" />
-        <CarouselNext className="hidden lg:inline-flex" />
+        <CarouselPrevious className="left-2" />
+        <CarouselNext className="right-2" />
       </Carousel>
       <CardContent className="p-4">
         <div className="mb-4">
