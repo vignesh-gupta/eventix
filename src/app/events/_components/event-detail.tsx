@@ -6,14 +6,13 @@ import {
   BookOpenCheckIcon,
   Calendar,
   Clock1,
-  Clock10,
   MapPin,
-  User,
+  User
 } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 import EventActions from "@/components/events/event-actions";
+import InfoField from "@/components/events/info-field";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,27 +30,16 @@ import {
 } from "@/components/ui/carousel";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { getDateFromTime } from "@/lib/utils";
-import InfoField from "../../../../components/events/info-field";
 
-type EventDetailsPageProps = {
-  params: {
-    id: Id<"events">;
-  };
+type EventDetailsProps = {
+  id: Id<"events">;
 };
 
-const EventDetailsPage = ({ params: { id } }: EventDetailsPageProps) => {
+const EventDetails = ({ id }: EventDetailsProps) => {
   const { userId } = useAuth();
 
   const eventData = useQuery(api.event.get, { id });
   const deleteEvent = useMutation(api.event.remove);
-
-  const router = useRouter();
-
-  const handleDelete = () => {
-    deleteEvent({ id });
-    router.push("/events");
-  };
 
   return (
     <Card className="w-full max-w-3xl mx-auto">
@@ -102,11 +90,10 @@ const EventDetailsPage = ({ params: { id } }: EventDetailsPageProps) => {
 
         <div className="grid gap-2">
           <InfoField
-            label="Created At"
-            value={getDateFromTime(eventData?._creationTime || 0)}
-            Icon={Calendar}
+            label="Location"
+            value={eventData?.location}
+            Icon={MapPin}
           />
-
           <InfoField
             label="Created By"
             value={eventData?.createdBy}
@@ -120,12 +107,10 @@ const EventDetailsPage = ({ params: { id } }: EventDetailsPageProps) => {
           />
 
           <InfoField
-            label="Location"
-            value={eventData?.location}
-            Icon={MapPin}
+            label="Timing"
+            value={`${eventData?.from} - ${eventData?.till}`}
+            Icon={Clock1}
           />
-          <InfoField label="Starts at" value={eventData?.from} Icon={Clock1} />
-          <InfoField label="Closes at" value={eventData?.till} Icon={Clock10} />
         </div>
       </CardContent>
       <CardFooter className="flex justify-end gap-2 p-2 pt-0">
@@ -135,4 +120,4 @@ const EventDetailsPage = ({ params: { id } }: EventDetailsPageProps) => {
   );
 };
 
-export default EventDetailsPage;
+export default EventDetails;

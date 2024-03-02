@@ -26,7 +26,7 @@ const EventActions = ({ className, eventId }: EventActionsProps) => {
   return (
     <div className={cn("flex items-start justify-end gap-1 p-2", className)}>
       <Button asChild variant="ghost" size="icon">
-        <Link href={`/event/${eventId}/edit`}>
+        <Link href={`/events/${eventId}/edit`}>
           <Edit size={20} />
         </Link>
       </Button>
