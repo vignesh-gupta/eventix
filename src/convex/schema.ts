@@ -12,5 +12,8 @@ export default defineSchema({
     till: v.string(),
     title: v.string(),
     creatorId: v.string(),
-  }),
+  }).searchIndex("search_title", {
+    searchField: "title",
+    filterFields: ["creatorId"],
+  })
 });

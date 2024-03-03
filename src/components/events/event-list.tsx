@@ -20,7 +20,7 @@ const EventList = ({ query }: EventListProps) => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-      {[...events, ...events,...events, ...events,...events, ...events,...events, ...events]?.map((event) => (
+      {events?.map((event) => (
         <EventCard key={event._id} {...event} createdAt={event._creationTime} />
       ))}
     </div>

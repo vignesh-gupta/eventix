@@ -16,18 +16,24 @@ export const getEvents = query({
 
     const { category, search, type } = args;
 
-    const events = await ctx.db
-      .query("events")
-      .filter((q) => (type ? q.eq(q.field("eventType"), type) : true))
-      .filter((q) =>
-        category
-          ? q.eq(
-              q.field("category"),
-              category.charAt(0).toUpperCase() + category.slice(1)
-            )
-          : true
-      )
-      .collect();
+    let events = [];
+
+    if (search) {
+      events = await ctx.db
+        .query("events")
+        .withSearchIndex("search_title", (q) => q.search("title", search))
+        .collect();
+    } else {
+      events = await ctx.db.query("events").collect();
+    }
+
+    events = events.filter((event) => {
+      if (category && event.category !== category) return false;
+      if (type) {
+        return type === "both" ? true : event.eventType === type;
+      }
+      return true;
+    });
 
     return events;
   },
