@@ -1,6 +1,3 @@
-"use client";
-
-
 import EventDetails from "@/app/events/_components/event-detail";
 import { Id } from "@/convex/_generated/dataModel";
 
