@@ -78,3 +78,44 @@ export const remove = mutation({
     return true;
   },
 });
+
+export const update = mutation({
+  args: {
+    id: v.id("events"),
+    title: v.string(),
+    description: v.string(),
+    category: v.string(),
+    eventType: v.string(),
+    from: v.string(),
+    till: v.string(),
+    location: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) throw new Error(UNAUTHORIZED_ERROR);
+
+    const event = await ctx.db.get(args.id);
+
+    if (!event) throw new Error(NO_EVENT_FOUND_ERROR);
+
+    if (event.creatorId !== identity.subject) {
+      throw new Error(UNAUTHORIZED_ERROR);
+    }
+
+    const { id , title, description, category, eventType, from, till, location } =
+      args;
+
+    const updatedEvent = ctx.db.patch(id, {
+      title: title,
+      description: description,
+      category: category,
+      eventType: eventType,
+      from: from,
+      till: till,
+      location: location,
+    });
+
+    return updatedEvent;
+  },
+});
